@@ -1,6 +1,6 @@
-import type { AuthResponse } from "./types";
+import type { AuthRequest, AuthResponse } from "./types";
 
-export async function authApi(creds: AuthResponse): Promise<AuthResponse> {
+export async function authApi(creds: AuthRequest): Promise<AuthResponse> {
   const response = await fetch("https://dummyjson.com/auth/login", {
     method: "POST",
     headers: {
@@ -10,7 +10,8 @@ export async function authApi(creds: AuthResponse): Promise<AuthResponse> {
     credentials: "include",
   });
   if (!response.ok) {
-    throw new Error("Authentication Failed");
+    const error = await response.json().catch(() => null);
+    throw new Error(error.message);
   }
   return response.json();
 }
