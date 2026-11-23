@@ -15,3 +15,19 @@ export async function authApi(creds: AuthRequest): Promise<AuthResponse> {
   }
   return response.json();
 }
+
+export async function getMeApi() {
+  const token = localStorage.getItem("token");
+  const response = await fetch("https://dummyjson.com/auth/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error.message);
+  }
+
+  return response.json();
+}
