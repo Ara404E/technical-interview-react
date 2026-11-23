@@ -21,6 +21,7 @@ export interface Product {
   brand?: string;
   images: string[];
   thumbnail: string;
+  availabilityStatus: string;
 }
 
 export interface ProductCategory {

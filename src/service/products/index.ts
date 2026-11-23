@@ -10,6 +10,7 @@ export async function getProductsApi() {
 
 export async function getSingleProductApi(id: number) {
   const response = await fetch(`https://dummyjson.com/products/${id}`);
+
   if (!response.ok) {
     const error = await response.json().catch(() => null);
     throw new Error(error?.message ?? "Failed to load product");
@@ -29,10 +30,25 @@ export async function getCategoriesApi() {
 }
 
 export async function getProductByCategoryApi(slug: string) {
-  const response = await fetch(`https://dummyjson.com/products/categories/${slug}`);
+  const response = await fetch(
+    `https://dummyjson.com/products/category/${slug}`,
+  );
   if (!response.ok) {
     const error = await response.json().catch(() => null);
     throw new Error(error?.message ?? "Failed to load category products");
+  }
+
+  return response.json();
+}
+
+export async function searchProductsApi(query: string) {
+  const response = await fetch(
+    `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`,
+  );
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(error?.message ?? "Failed to search products");
   }
 
   return response.json();

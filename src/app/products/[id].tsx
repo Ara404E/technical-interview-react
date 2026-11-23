@@ -20,9 +20,8 @@ export function ProductDetailsPage() {
       setError(
         error instanceof Error ? error.message : "Failed to fetch product",
       );
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -35,9 +34,9 @@ export function ProductDetailsPage() {
       <div className="p-4 lg:p-8">
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 text-yellow-400 transition hover:text-yellow-300"
+          className="mb-6 text-yellow-400 transition hover:text-yellow-300 cursor-pointer"
         >
-          ← Back to products
+          Back to products
         </button>
 
         {loading && <p className="text-slate-400">Loading product...</p>}
@@ -106,12 +105,12 @@ export function ProductDetailsPage() {
                   <span className="text-white">{product.stock}</span>
                 </div>
 
-                {/* <div className="flex justify-between">
+                <div className="flex justify-between">
                   <span className="text-slate-400">Availability</span>
                   <span className="text-white">
                     {product.availabilityStatus}
                   </span>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
